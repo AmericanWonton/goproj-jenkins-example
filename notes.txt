@@ -1,0 +1,19 @@
+golang testing:
+
+Link to tutorial(Introduction): https://youtu.be/GlA57dHa5Rg
+Advanced Go Testing: https://www.youtube.com/watch?v=S1O0XI0scOM
+
+Important notes: 
+go test in the testing directory
+OR 
+go test -v in the testing directory
+
+
+For large, enterprise testing, you'll want to include a go mod init file...
+you should also specify a specific 'integration' testing file versus a standard testing 
+file
+
+In our example, that comment line actually designates what go test will run
+To run the integration file, run: go test -tags=integration
+
+ISSUE: build comment must appear before package clause error
