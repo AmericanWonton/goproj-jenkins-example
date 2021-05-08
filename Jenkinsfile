@@ -11,7 +11,7 @@ pipeline{
         DOCKER_CREDENTIALS = credentials('dockerlogin')
         //GO111MODULE = 'on' //Used from Go Plugin; kind of messing up go modules
         // Ensure the desired Go version is installed
-        def root = tool type: 'go', name: 'go-1.16.4'
+        //def root = tool type: 'go', name: 'go-1.16.4'
     }
     //Access build tools for projects
     tools {
@@ -19,7 +19,7 @@ pipeline{
         Rn, Jenkins only supports gradle, maven, and JDK. These tools need to be
         pre-installed in Jenkins. For example, adding this makes maven commands available */
         //maven 'Maven'
-        go 'go-1.16.4' //This needs to be what you named it in config
+        //go 'go-1.16.4' //This needs to be what you named it in config
     }
     //Things to execute in Jenkins
     stages{
@@ -48,11 +48,15 @@ pipeline{
         stage("test"){
             steps{
                 echo "Golang App starting Testing"
-
+                sh 'go version'
+                sh 'go env'
+                sh 'go test ./testing/ -v'
+                /*
                 withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
                     sh 'go version'
                     sh 'go test ./testing/ -v'
                 }
+                */
             }
             post{
                 always{
