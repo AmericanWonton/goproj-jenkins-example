@@ -19,4 +19,5 @@ I installed the Golang tool, along with a few other stuff for Kubernetes
 Golang Plugin notes: https://plugins.jenkins.io/golang/
 Good note on how to do stuff with Jenkins Go: https://bmuschko.com/blog/go-on-jenkins/
 
-blah blah test test
+I used this project with my github account instead of git. HEre's how to create a 
+credntial for it: https://stackoverflow.com/questions/61105368/how-to-use-github-personal-access-token-in-jenkins/61105369#61105369
