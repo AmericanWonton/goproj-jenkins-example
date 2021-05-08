@@ -1,3 +1,18 @@
 Some materials:
 https://www.eficode.com/blog/jenkins-groovy-tutorial
 https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-a-jenkinsfile
+https://www.youtube.com/watch?v=7KCS70sCoK0
+Build tools in Jenkins: https://www.youtube.com/watch?v=L9Ite-1pEU8
+
+
+DSL is a 'Domain Specific Lanuge)...like Groovy
+
+To get Environment Variables you can use in your file:
+localhost:8800/env-vars.html/
+
+To create/Use Credentials for refference in your jenkins file, you gotta add them to jenkins
+in the Credentials section, under Managae Credentials. Use that ID for reffrence in your file
+
+For the tools section, go to 'Global Tool Configuration' to make sure they're configured properly
+Build tools in Jenkins: https://www.youtube.com/watch?v=L9Ite-1pEU8
+I installed the Golang tool, along with a few other stuff for Kubernetes

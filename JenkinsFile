@@ -1,20 +1,83 @@
 pipeline{
     agent any //Run this on ANY Jenkins Server
+    //This is used to define environmental variables; they can be used in any stage!
+    environment {
+        NEW_VERSION = '1.1' //Test variable, you would get this from your code usually
+        /* The 'credentails' method finds credentials stored in jenkins to pass in this file.
+        It's in the 'credentials binding' plug-in you need installed. It takes the ID you made as refference.
+        This is just one way of doing it...you can also use the 'withCredentials()' wrapper,
+        (see the deploy section)  */
+        SERVER_CREDENTIALS = credentials('test-file-cred')
+    }
+    //Access build tools for projects
+    tools {
+        /* This is used for building tools you might need for applications.
+        Rn, Jenkins only supports gradle, maven, and JDK. These tools need to be
+        pre-installed in Jenkins. For example, adding this makes maven commands available */
+        maven 'Maven'
+    }
     //Things to execute in Jenkins
     stages{
-        stage("init"){
+        stage("build"){
             steps{
-                echo "========executing A========"
+                echo "building the golang applicaiton"
+                /* USE DOUBLE QUOTES SO IT'S COMPATIBLE WITH GROOVY! */
+                echo "building version ${NEW_VERSION}"
+                sh "mvn install" //Available by adding in tools 
             }
             post{
                 always{
-                    echo "========always========"
+                    echo "Finished building golang application"
                 }
                 success{
-                    echo "========A executed successfully========"
+                    echo "Golang app built successfully"
                 }
                 failure{
-                    echo "========A execution failed========"
+                    echo "Golang app build un-successfully"
+                }
+            }
+        }
+        stage("test"){
+            steps{
+                echo "Golang App starting Testing"
+            }
+            post{
+                always{
+                    echo "Finished testing golang app"
+                }
+                success{
+                    echo "Golang App Tested Successfully"
+                }
+                failure {
+                    echo "Golang App Failed testing"
+                }
+            }
+        }
+        stage("deploy"){
+            /* This would be a good place to pass credentials to a server, for building on a dev machine, 
+            or SSH into a dev machine */
+            steps{
+                echo "Deploying Golang App"
+                echo "Here is our server credentials: ${SERVER_CREDENTIALS}"
+                /* You can also use this. It takes object Syntax, from Groovy.
+                Passes in the Username and password you defined in Jenkins Admin.
+                It then stores the Username you define in USER and password in PWD  */
+                withCredentials([
+                    usernamePassword(credentials: 'test-file-cred', usernameVariable: USER, passwordVariable: PWD)
+                ]) {
+                    //Here, you can run a shell script with those variables to do stuff
+                    sh "some script ${USER} ${PWD}"
+                }
+            }
+            post{
+                always{
+                    echo "Finished Deploying Golang App"
+                }
+                success{
+                    echo "Golang App Succeeded deploying"
+                }
+                failure{
+                    echo "Golang App failed deploying"
                 }
             }
         }
