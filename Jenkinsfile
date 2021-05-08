@@ -72,7 +72,8 @@ pipeline{
                     usernamePassword(credentialsId: 'test-file-cred', usernameVariable: USER, passwordVariable: PWD)
                 ]) {
                     //Here, you can run a shell script with those variables to do stuff
-                    sh "some script ${USER} ${PWD}"
+                    sh "echo ${USER}"
+                    sh "echo ${PWD}"
                 }
             }
             post{
