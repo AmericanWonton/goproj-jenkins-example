@@ -46,6 +46,8 @@ pipeline{
         stage("test"){
             steps{
                 echo "Golang App starting Testing"
+                sh "cd testing"
+                sh "echo 'we are in here' && pwd"
             }
             post{
                 always{
