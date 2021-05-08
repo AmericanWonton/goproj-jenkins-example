@@ -14,13 +14,14 @@ pipeline{
         //def root = tool type: 'go', name: 'go-1.16.4'
     }
     //Access build tools for projects
-    tools {
+    /* tools {
         /* This is used for building tools you might need for applications.
         Rn, Jenkins only supports gradle, maven, and JDK. These tools need to be
         pre-installed in Jenkins. For example, adding this makes maven commands available */
         //maven 'Maven'
-        go 'go-1.16.4' //This needs to be what you named it in config
-    }
+        //go 'go-1.16.4' //This needs to be what you named it in config
+    //}*/
+    
     //Things to execute in Jenkins
     stages{
         stage("build"){
