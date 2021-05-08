@@ -48,10 +48,10 @@ pipeline{
         stage("test"){
             steps{
                 echo "Golang App starting Testing"
-                sh "cd testing"
-                sh "echo 'we are in here' && pwd"
+
                 withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
                     sh 'go version'
+                    sh 'go mod init'
                     sh 'go test ./testing/ -v'
                 }
             }
