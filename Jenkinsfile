@@ -29,6 +29,7 @@ pipeline{
                 sh "mvn install" //Available by adding in tools
                 sh "ls -a" 
                 sh "pwd"
+                echo "just seeing if we need to CD into anything..."
             }
             post{
                 always{
