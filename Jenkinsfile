@@ -9,7 +9,7 @@ pipeline{
         (see the deploy section)  */
         SERVER_CREDENTIALS = credentials('test-file-cred')
         DOCKER_CREDENTIALS = credentials('dockerlogin')
-        GO111MODULE = 'on' //Used from Go Plugin
+        //GO111MODULE = 'on' //Used from Go Plugin; kind of messing up go modules
         // Ensure the desired Go version is installed
         def root = tool type: 'go', name: 'go-1.16.4'
     }
