@@ -1,4 +1,3 @@
-// +build unit
 package main
 
 import (
@@ -63,7 +62,6 @@ func TestAdd(t *testing.T) {
 }
 
 /* Test DIRECTORY EXAMPLE */
-
 func TestReadFile(t *testing.T) {
 	data, err := ioutil.ReadFile("testdata/test.data")
 	if err != nil {

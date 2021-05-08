@@ -3,6 +3,8 @@ golang testing:
 Link to tutorial(Introduction): https://youtu.be/GlA57dHa5Rg
 Advanced Go Testing: https://www.youtube.com/watch?v=S1O0XI0scOM
 
+You should download this for color coating: go get -u github.com/rakyll/gotest
+
 Important notes: 
 go test in the testing directory
 OR 
