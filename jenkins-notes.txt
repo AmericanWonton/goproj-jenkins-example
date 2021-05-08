@@ -1,0 +1,3 @@
+Some materials:
+https://www.eficode.com/blog/jenkins-groovy-tutorial
+https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-a-jenkinsfile
