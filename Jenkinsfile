@@ -64,12 +64,12 @@ pipeline{
             or SSH into a dev machine */
             steps{
                 echo "Deploying Golang App"
-                echo "Here is our server credentials: ${SERVER_CREDENTIALS}"
+                //echo "Here is our server credentials: ${SERVER_CREDENTIALS}" //This is insecure, you get a warning
                 /* You can also use this. It takes object Syntax, from Groovy.
                 Passes in the Username and password you defined in Jenkins Admin.
                 It then stores the Username you define in USER and password in PWD  */
                 withCredentials([
-                    usernamePassword(credentials: 'test-file-cred', usernameVariable: USER, passwordVariable: PWD)
+                    usernamePassword(credentialsId: 'test-file-cred', usernameVariable: USER, passwordVariable: PWD)
                 ]) {
                     //Here, you can run a shell script with those variables to do stuff
                     sh "some script ${USER} ${PWD}"
