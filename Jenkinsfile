@@ -51,7 +51,6 @@ pipeline{
 
                 withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
                     sh 'go version'
-                    sh 'go mod init'
                     sh 'go test ./testing/ -v'
                 }
             }
