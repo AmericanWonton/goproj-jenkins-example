@@ -10,6 +10,10 @@ go test in the testing directory
 OR 
 go test -v in the testing directory
 
+To test golang in a certain directory outside of the testing folder: 
+go test ./testing/ -v
+https://stackoverflow.com/questions/19200235/golang-tests-in-sub-directory
+
 
 For large, enterprise testing, you'll want to include a go mod init file...
 you should also specify a specific 'integration' testing file versus a standard testing 

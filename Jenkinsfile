@@ -10,6 +10,8 @@ pipeline{
         SERVER_CREDENTIALS = credentials('test-file-cred')
         DOCKER_CREDENTIALS = credentials('dockerlogin')
         GO111MODULE = 'on' //Used from Go Plugin
+        // Ensure the desired Go version is installed
+        def root = tool type: 'go', name: 'go-1.16.4'
     }
     //Access build tools for projects
     tools {
@@ -48,6 +50,10 @@ pipeline{
                 echo "Golang App starting Testing"
                 sh "cd testing"
                 sh "echo 'we are in here' && pwd"
+                withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+                    sh 'go version'
+                    sh 'go test ./testing/ -v'
+                }
             }
             post{
                 always{
