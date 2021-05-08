@@ -16,3 +16,5 @@ in the Credentials section, under Managae Credentials. Use that ID for reffrence
 For the tools section, go to 'Global Tool Configuration' to make sure they're configured properly
 Build tools in Jenkins: https://www.youtube.com/watch?v=L9Ite-1pEU8
 I installed the Golang tool, along with a few other stuff for Kubernetes
+Golang Plugin notes: https://plugins.jenkins.io/golang/
+Good note on how to do stuff with Jenkins Go: https://bmuschko.com/blog/go-on-jenkins/
