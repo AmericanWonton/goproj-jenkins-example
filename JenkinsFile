@@ -8,6 +8,7 @@ pipeline{
         This is just one way of doing it...you can also use the 'withCredentials()' wrapper,
         (see the deploy section)  */
         SERVER_CREDENTIALS = credentials('test-file-cred')
+        DOCKER_CREDENTIALS = credentials('dockerlogin')
     }
     //Access build tools for projects
     tools {
