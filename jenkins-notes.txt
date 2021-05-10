@@ -30,3 +30,5 @@ For groovy scripts, all of the variables are accessible in Groovy AND Jenkins
 
 Use the 'replay' button in jenkins to execute very quick changes to your jenkins configurations
 
+In order to run some groovy files, Jenkins might need to approve those Java methods...not sure at all why. Sometimes 
+it works, sometimes it dosen't, and there's no easy way to just let these through...
