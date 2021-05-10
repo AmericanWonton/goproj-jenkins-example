@@ -27,12 +27,22 @@ pipeline {
     parameters{
         string(name: 'TEST_PARAMETER', defaultValue: '', description: "This is for running this application with THIS parameter")
         choice(name: "TEST_CHOICE_PARAMETER", choices: ['choice1', 'choice2'], description: 'This is an example choice parameter ')
-        booleanParam(name: 'executeTests', defaultValue: true, description: 'Test description')
+        /* Use these variables for expediancy running these jobs */
+        booleanParam(name: 'executeTests', defaultValue: false, description: 'Test description')
+        booleanParam(name: 'runinit', defaultValue: true, description: 'Run initialization')
+        booleanParam(name: 'runBuild', defaultValue: false, description: 'Run build')
+        booleanParam(name: 'runDeploy', defaultValue: false, description: 'Run Deploy')
+        booleanParam(name: 'runGroovy', defaultValue: true, description: 'Run Groovy')
     }
     
     //Things to execute in Jenkins
     stages{
         stage("init"){
+            when {
+                expression {
+                    params.runinit
+                }
+            }
             steps{
                 //writeFile(file: "./jenkinsscripts/script.groovy", text: "")
                 /* This is how we load our groovy scripts into Jenkins */
@@ -42,6 +52,11 @@ pipeline {
             }
         }
         stage("build"){
+            when {
+                expression {
+                    params.runBuild
+                }
+            }
             steps{
                 echo "building the golang applicaiton"
                 /* USE DOUBLE QUOTES SO IT'S COMPATIBLE WITH GROOVY! */
@@ -96,6 +111,11 @@ pipeline {
         stage("deploy"){
             /* This would be a good place to pass credentials to a server, for building on a dev machine, 
             or SSH into a dev machine */
+            when {
+                expression {
+                    params.runDeploy
+                }
+            }
             steps{
                 echo "Deploying Golang App"
                 echo "Deploying vesrion ${params.TEST_PARAMETER}"
@@ -124,6 +144,11 @@ pipeline {
             }
         }
         stage("groovy-test"){
+            when {
+                expression {
+                    params.runGroovy
+                }
+            }
             steps{
                 /* Example using scripts within Jenkins */
                 script {
