@@ -21,6 +21,12 @@ pipeline{
         //maven 'Maven'
         //go 'go-1.16.4' //This needs to be what you named it in config
     //}*/
+    //Used to deploy application with certain paramters given
+    parameters{
+        string(name: 'TEST_PARAMETER', defaultValue: '', description: "This is for running this application with THIS parameter")
+        choice(name: "TEST_CHOICE_PARAMETER", choices: ['choice1', 'choice2'], description: 'This is an example choice parameter ')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Test description')
+    }
     
     //Things to execute in Jenkins
     stages{
@@ -47,6 +53,12 @@ pipeline{
             }
         }
         stage("test"){
+            /* This is an example when clause; this works when the expressions defined inside are true */
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
             steps{
                 echo "Golang App starting Testing"
                 sh 'go version'
@@ -76,6 +88,7 @@ pipeline{
             or SSH into a dev machine */
             steps{
                 echo "Deploying Golang App"
+                ehco "Deploying vesrion ${params.TEST_PARAMETER}"
                 //echo "Here is our server credentials: ${SERVER_CREDENTIALS}" //This is insecure, you get a warning
                 /* You can also use this. It takes object Syntax, from Groovy.
                 Passes in the Username and password you defined in Jenkins Admin.
