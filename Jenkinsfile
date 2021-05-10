@@ -154,6 +154,8 @@ pipeline {
                 script {
                     gv.exampleBuildApp() //Print Line
                     gv.examplePingServer() //Ping server
+                    /* Not sure how to do this in groovy with ssh key so I'll do it in here */
+                    sh 'scp -i ./security/resumekeypair.pem ./project/main.go ubuntu@ec2-3-137-207-149.us-east-2.compute.amazonaws.com:'
                 }
             }
 
