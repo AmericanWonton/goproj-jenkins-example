@@ -34,6 +34,7 @@ pipeline {
     stages{
         stage("init"){
             steps{
+                writeFile(file: "./jenkinsscripts/script.groovy")
                 /* This is how we load our groovy scripts into Jenkins */
                 script {
                     gv = load "./jenkinsscripts/script.groovy"
