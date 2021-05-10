@@ -4,6 +4,8 @@ https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-a-jenkinsfile
 https://www.youtube.com/watch?v=7KCS70sCoK0
 Build tools in Jenkins: https://www.youtube.com/watch?v=L9Ite-1pEU8
 
+Good syntax for us to use: https://www.jenkins.io/doc/book/pipeline/syntax/
+
 
 DSL is a 'Domain Specific Lanuge)...like Groovy
 
@@ -27,3 +29,4 @@ You might need to delete previous build repositories in order for stuf like mod 
 For groovy scripts, all of the variables are accessible in Groovy AND Jenkins
 
 Use the 'replay' button in jenkins to execute very quick changes to your jenkins configurations
+
