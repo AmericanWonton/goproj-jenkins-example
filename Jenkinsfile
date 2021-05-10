@@ -144,6 +144,9 @@ pipeline {
             }
         }
         stage("groovy-test"){
+            options {
+                timeout(time: 30, unit: 'SECONDS') //Timeout for this stage
+            }
             when {
                 expression {
                     params.runGroovy
@@ -155,7 +158,8 @@ pipeline {
                     gv.exampleBuildApp() //Print Line
                     gv.examplePingServer() //Ping server
                     /* Not sure how to do this in groovy with ssh key so I'll do it in here */
-                    sh 'scp -i ./security/resumekeypair.pem ./project/main.go ubuntu@ec2-3-137-207-149.us-east-2.compute.amazonaws.com:'
+                    sh 'pwd'
+                    //sh 'scp -i ./security/resumekeypair.pem ./project/main.go ubuntu@ec2-3-137-207-149.us-east-2.compute.amazonaws.com:'
                 }
             }
 
