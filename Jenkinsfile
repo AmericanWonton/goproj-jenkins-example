@@ -152,12 +152,8 @@ pipeline {
             steps{
                 /* Example using scripts within Jenkins */
                 script {
-                    gv.exampleBuildApp()
-                }
-                /* Test ping a server */
-                script {
-                    sh "pwd"
-                    gv.examplePingServer()
+                    gv.exampleBuildApp() //Print Line
+                    gv.examplePingServer() //Ping server
                 }
             }
 
