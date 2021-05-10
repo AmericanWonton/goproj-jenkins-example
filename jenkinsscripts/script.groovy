@@ -4,6 +4,8 @@ def exampleBuildApp() {
 
 def examplePingServer() {
     println "ls".execute().text
+    "cd var".execute()
+    println "ls".execute().text
 }
 
 return this //Need this to import this groovy script into Jenkins
