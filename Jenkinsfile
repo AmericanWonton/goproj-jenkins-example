@@ -156,6 +156,7 @@ pipeline {
                 }
                 /* Test ping a server */
                 script {
+                    sh "pwd"
                     gv.examplePingServer()
                 }
             }
