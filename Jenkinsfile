@@ -129,14 +129,10 @@ pipeline {
         stage("groovy-test"){
             steps{
                 /* Test ping a server */
-                step{
-                    script {
-                        gv.examplePingServer()
-                    }
+                script {
+                    gv.examplePingServer()
                 }
             }
-            
-
 
             post{
                 always{
