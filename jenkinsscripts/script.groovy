@@ -1,10 +1,12 @@
+package jenkinsscripts
+
 def exampleBuildApp() {
     echo 'we are inside groovy script, building an app'
 }
 
 def examplePingServer() {
     println "ls".execute().text
-    "cd var".execute()
+    "cd ./var".execute()
     println "ls".execute().text
 }
 
