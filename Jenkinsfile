@@ -1,4 +1,6 @@
-pipeline{
+def gv //Need this to declare our groovy script into a variable under 'init'
+
+pipeline { 
     agent any //Run this on ANY Jenkins Server
     //This is used to define environmental variables; they can be used in any stage!
     environment {
@@ -30,6 +32,14 @@ pipeline{
     
     //Things to execute in Jenkins
     stages{
+        stage("init"){
+            steps{
+                /* This is how we load our groovy scripts into Jenkins */
+                script {
+                    gv = load "./jenkinsscripts/script.groovy"
+                }
+            }
+        }
         stage("build"){
             steps{
                 echo "building the golang applicaiton"
@@ -38,7 +48,10 @@ pipeline{
                 //sh "mvn install" //Available by adding in tools
                 sh "ls -a" 
                 sh "pwd"
-                echo "just seeing if we need to CD into anything..."
+                /* Example using scripts within Jenkins */
+                script {
+                    gv.exampleBuildApp()
+                }
             }
             post{
                 always{

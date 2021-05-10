@@ -23,3 +23,5 @@ I used this project with my github account instead of git. HEre's how to create 
 credntial for it: https://stackoverflow.com/questions/61105368/how-to-use-github-personal-access-token-in-jenkins/61105369#61105369
 
 You might need to delete previous build repositories in order for stuf like mod init or whatever to work
+
+For groovy scripts, all of the variables are accessible in Groovy AND Jenkins
