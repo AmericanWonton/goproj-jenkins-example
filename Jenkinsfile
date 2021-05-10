@@ -126,6 +126,30 @@ pipeline {
                 }
             }
         }
+        stage("groovy-test"){
+            steps{
+                /* Test ping a server */
+                step{
+                    script {
+                        gv.examplePingServer()
+                    }
+                }
+            }
+            
+
+
+            post{
+                always{
+                    echo "Finished Testing Groovy Stuff"
+                }
+                success{
+                    echo "Succeeded Testing Groovy Stuff"
+                }
+                failure{
+                    echo "Failed Testing Groovy Stuff"
+                }
+            }
+        }
     }
     //Things to do AFTER Jenkins builds
     post{

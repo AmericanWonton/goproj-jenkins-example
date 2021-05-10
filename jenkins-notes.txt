@@ -25,3 +25,5 @@ credntial for it: https://stackoverflow.com/questions/61105368/how-to-use-github
 You might need to delete previous build repositories in order for stuf like mod init or whatever to work
 
 For groovy scripts, all of the variables are accessible in Groovy AND Jenkins
+
+Use the 'replay' button in jenkins to execute very quick changes to your jenkins configurations
