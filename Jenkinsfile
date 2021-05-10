@@ -34,7 +34,7 @@ pipeline {
     stages{
         stage("init"){
             steps{
-                writeFile(file: "./jenkinsscripts/script.groovy", text: "")
+                //writeFile(file: "./jenkinsscripts/script.groovy", text: "")
                 /* This is how we load our groovy scripts into Jenkins */
                 script {
                     gv = load "./jenkinsscripts/script.groovy"
@@ -45,14 +45,10 @@ pipeline {
             steps{
                 echo "building the golang applicaiton"
                 /* USE DOUBLE QUOTES SO IT'S COMPATIBLE WITH GROOVY! */
-                echo "building version ${NEW_VERSION}"
+                //echo "building version ${NEW_VERSION}"
                 //sh "mvn install" //Available by adding in tools
-                sh "ls -a" 
-                sh "pwd"
-                /* Example using scripts within Jenkins */
-                script {
-                    gv.exampleBuildApp()
-                }
+                //sh "ls -a" 
+                //sh "pwd"
             }
             post{
                 always{
@@ -129,6 +125,10 @@ pipeline {
         }
         stage("groovy-test"){
             steps{
+                /* Example using scripts within Jenkins */
+                script {
+                    gv.exampleBuildApp()
+                }
                 /* Test ping a server */
                 script {
                     gv.examplePingServer()
