@@ -36,3 +36,9 @@ In order to run some groovy files, Jenkins might need to approve those Java meth
 it works, sometimes it dosen't, and there's no easy way to just let these through...
 
 SSH Tutorial: https://www.youtube.com/watch?v=ZtNEyMXWpjI
+
+Might be best to build scripts to run on these servers, then call them in a seperate job:
+https://stackoverflow.com/questions/27198326/execute-shell-script-from-workspace-on-remote-machine-after-build-successful-je
+
+How to trigger another job in Jenkins:
+https://bigdata-etl.com/jenkins-how-to-trigger-another-pipeline-from-current-job/

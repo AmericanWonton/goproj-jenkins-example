@@ -55,11 +55,7 @@ pipeline {
                 dir ('security'){
                     echo 'Writing our pem file'
                     /* We'll need to make this more secure later */
-                    writeFile(file:'resumekeypair.pem', text: "${RESUME_PEM}", encoding: "UTF-8")
-                    writeFile(file:'testfile.txt', text: "Dese", encoding: "UTF-8")
-                    sh 'chmod 777 resumekeypair.pem'
-                    sh 'chmod 777 testfile.txt'
-                    sh 'scp -i resumekeypair.pem testfile.txt ubuntu@ec2-18-223-29-184.us-east-2.compute.amazonaws.com'
+                    
                 }
                 
             }
@@ -196,6 +192,8 @@ pipeline {
         }
         success{
             echo "========pipeline executed successfully ========"
+            echo "We shall now run the test-ssh-job"
+            build job: 'test-ssh-pipeline', parameters: [string(name: 'MY_STRING_PARAM', value: 'Hey, it is the value from our main jenkins')]
         }
         failure{
             echo "========pipeline execution failed========"
