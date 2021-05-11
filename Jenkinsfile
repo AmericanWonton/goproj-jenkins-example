@@ -51,14 +51,12 @@ pipeline {
                     gv = load "./jenkinsscripts/script.groovy"
                 }
                 /* Need to write a pem key file and folder for us to work in */
-                withCredentials([
-                    string(credentialsID: 'resume-private-key', variable: 'SECRET')
-                ]) {
-                    dir ('security'){
-                        writeFile file:'resumekeypair.pem', text: $SECRET
-                    }
-                    sh 'sudo cat ./security/resumekeypair.pem'
+                
+                dir ('security'){
+                    writeFile file:'resumekeypair.pem', text: $RESUME_PEM
                 }
+                sh 'sudo cat ./security/resumekeypair.pem'
+                
             }
         }
         stage("build"){
