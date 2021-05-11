@@ -54,8 +54,9 @@ pipeline {
                 
                 dir ('security'){
                     echo 'Writing our pem file'
-                    writeFile(file:'resumekeypair.pem', text: $RESUME_PEM)
-                    sh 'sudo cat ./security/resumekeypair.pem'
+                    /* We'll need to make this more secure later */
+                    writeFile(file:'resumekeypair.pem', text: "${RESUME_PEM}", encoding: "UTF-8")
+                    sh 'cat resumekeypair.pem'
                 }
                 
             }
