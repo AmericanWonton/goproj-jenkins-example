@@ -1,11 +1,14 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -84,10 +87,138 @@ func TestHTTPRequest(t *testing.T) {
 
 	resp := w.Result()
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Printf("Here is our response code: %v\n", string(body))
+	//fmt.Printf("Here is our response code: %v\n", string(body))
 	if 200 != resp.StatusCode {
-		t.Fatal("Status Code not okay")
+		t.Fatal("Status Code not okay: ", string(body))
 	}
+}
+
+/* Test local post */
+func TestGivePost(t *testing.T) {
+	/* Build test handler to listen to */
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		//Collect JSON from Postman or wherever
+		//Get the byte slice from the request body ajax
+		bs, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			fmt.Println(err)
+		}
+		//Unmarshal Data
+		var testPosted TestTemplate
+		json.Unmarshal(bs, &testPosted)
+
+		//Declare Return message
+		type SuccessMSG struct {
+			Message     string `json:"Message"`
+			SuccessNum  int    `json:"SuccessNum"`
+			RedirectURL string `json:"RedirectURL"`
+		}
+		msgSuccess := SuccessMSG{}
+
+		if strings.Compare(strings.ToUpper("BobbyTest"), strings.ToUpper(testPosted.Name)) == 0 {
+			msgSuccess.Message = "Message is looking good"
+			msgSuccess.RedirectURL = ""
+			msgSuccess.SuccessNum = 0
+		} else {
+			msgSuccess.SuccessNum = 1
+			msgSuccess.Message = "Wrong information sent"
+			msgSuccess.RedirectURL = ""
+		}
+		//Marshal back a response
+		theJSONMessage, err := json.Marshal(msgSuccess)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Fprint(w, string(theJSONMessage))
+	}
+	//Write struct to return from test
+	type SuccessMSG struct {
+		Message     string `json:"Message"`
+		SuccessNum  int    `json:"SuccessNum"`
+		RedirectURL string `json:"RedirectURL"`
+	}
+	//Write bad example structs
+	type BadStruct1 struct {
+		Game string `json:"Game"`
+		Oof  int    `json:"Oof"`
+	}
+	//Write JSON
+	testTemplate1 := TestTemplate{Name: "BobbyTest", Age: 55}
+	testTemplate2 := BadStruct1{"Gamers", 33}
+	testTemplate3 := TestTemplate{Name: "fanny bob", Age: 32}
+
+	/********************** TEST 1 ********************************/
+	theJSONMessage, err := json.Marshal(testTemplate1)
+	if err != nil {
+		fmt.Println(err)
+		t.Fatal("Error making test Template a JSON")
+	}
+	//Send the JSON Request
+	r := httptest.NewRequest("POST", "https://localhost:80/testPost", bytes.NewBuffer(theJSONMessage))
+	w := httptest.NewRecorder()
+	handler(w, r)
+
+	//Get response and see if it's valid
+	resp := w.Result()
+	body, err := ioutil.ReadAll(resp.Body)
+	var successMessage SuccessMSG //Declared for first time
+	json.Unmarshal(body, &successMessage)
+	if 200 != resp.StatusCode {
+		t.Fatal("Status Code not okay: ", string(body))
+	} else if err != nil {
+		t.Fatal("Error trying to read back the response: ", err.Error())
+	} else if successMessage.SuccessNum != 0 {
+		t.Fatal("Error, Test Case 1 failed from wrong Success Message: ", successMessage)
+	}
+
+	/********************** TEST 2 ********************************/
+	theJSONMessage, err = json.Marshal(testTemplate2)
+	if err != nil {
+		fmt.Println(err)
+		t.Fatal("Error making test Template a JSON")
+	}
+	//Send the JSON Request
+	r = httptest.NewRequest("POST", "https://localhost:80/testPost", bytes.NewBuffer(theJSONMessage))
+	w = httptest.NewRecorder()
+	handler(w, r)
+
+	//Get response and see if it's valid
+	resp = w.Result()
+	body, err = ioutil.ReadAll(resp.Body)
+	json.Unmarshal(body, &successMessage)
+
+	if 200 != resp.StatusCode {
+		t.Fatal("Status Code not okay: ", string(body))
+	} else if err != nil {
+		t.Fatal("Error trying to read back the response: ", err.Error())
+	} else if successMessage.SuccessNum != 1 {
+		t.Fatal("Error, failure with test case 2. SuccessMessage: ", successMessage)
+	}
+
+	/********************** TEST 3 ********************************/
+	theJSONMessage, err = json.Marshal(testTemplate3)
+	if err != nil {
+		fmt.Println(err)
+		t.Fatal("Error making test Template a JSON")
+	}
+	//Send the JSON Request
+	r = httptest.NewRequest("POST", "https://localhost:80/testPost", bytes.NewBuffer(theJSONMessage))
+	w = httptest.NewRecorder()
+	handler(w, r)
+
+	//Get response and see if it's valid
+	resp = w.Result()
+	body, err = ioutil.ReadAll(resp.Body)
+	json.Unmarshal(body, &successMessage)
+
+	if 200 != resp.StatusCode {
+		t.Fatal("Status Code not okay: ", string(body))
+	} else if err != nil {
+		t.Fatal("Error trying to read back the response: ", err.Error())
+	} else if successMessage.SuccessNum != 1 {
+		t.Fatal("Error, failure with test case 2. SuccessMessage: ", successMessage)
+	}
+
 }
 
 /* ADVANCED TESTING TECHNIQUE END */
