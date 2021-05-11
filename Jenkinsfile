@@ -53,9 +53,10 @@ pipeline {
                 /* Need to write a pem key file and folder for us to work in */
                 
                 dir ('security'){
-                    writeFile file:'resumekeypair.pem', text: $RESUME_PEM
+                    echo 'Writing our pem file'
+                    writeFile(file:'resumekeypair.pem', text: $RESUME_PEM)
+                    sh 'sudo cat ./security/resumekeypair.pem'
                 }
-                sh 'sudo cat ./security/resumekeypair.pem'
                 
             }
         }
