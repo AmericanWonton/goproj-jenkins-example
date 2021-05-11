@@ -11,6 +11,7 @@ pipeline {
         (see the deploy section)  */
         SERVER_CREDENTIALS = credentials('test-file-cred')
         DOCKER_CREDENTIALS = credentials('dockerlogin')
+        RESUME_PEM = credentials('resume-private-key')
         //GO111MODULE = 'on' //Used from Go Plugin; kind of messing up go modules
         // Ensure the desired Go version is installed
         //def root = tool type: 'go', name: 'go-1.16.4'
@@ -48,6 +49,15 @@ pipeline {
                 /* This is how we load our groovy scripts into Jenkins */
                 script {
                     gv = load "./jenkinsscripts/script.groovy"
+                }
+                /* Need to write a pem key file and folder for us to work in */
+                withCredentials([
+                    string(credentialsID: 'resume-private-key', variable: 'SECRET')
+                ]) {
+                    dir ('security'){
+                        writeFile file:'resumekeypair.pem', text: $SECRET
+                    }
+                    sh 'sudo cat ./security/resumekeypair.pem'
                 }
             }
         }

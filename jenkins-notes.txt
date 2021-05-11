@@ -6,6 +6,8 @@ Build tools in Jenkins: https://www.youtube.com/watch?v=L9Ite-1pEU8
 
 Good syntax for us to use: https://www.jenkins.io/doc/book/pipeline/syntax/
 
+To restart Jenkins Service: sudo service jenkins restart
+
 
 DSL is a 'Domain Specific Lanuge)...like Groovy
 
@@ -32,3 +34,5 @@ Use the 'replay' button in jenkins to execute very quick changes to your jenkins
 
 In order to run some groovy files, Jenkins might need to approve those Java methods...not sure at all why. Sometimes 
 it works, sometimes it dosen't, and there's no easy way to just let these through...
+
+SSH Tutorial: https://www.youtube.com/watch?v=ZtNEyMXWpjI
